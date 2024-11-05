@@ -171,9 +171,8 @@ public class TeamMemberRepositoryTest {
         // 원래 방식대로라면
         // Team team = Team.builder().id("team4").name("팀4").build();
         // teamRepository.save(team);
-        // Member member =
-        // Member.builder().id("user12").userName("수선화").team(team).build();
-        // memberRepository.save(member);
+        // Member member = Member.builder().id("user12").userName("수선화").team(team).build();
+        // memberRepository.save(member); 
     }
 
 }

@@ -31,5 +31,4 @@ public class Member {
     // 주인이 누구냐? @ManyToOne 를 설정한 entity 가 주인임
     @ManyToOne(cascade = CascadeType.ALL)
     private Team team; // 외래키
-
 }

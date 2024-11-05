@@ -29,10 +29,9 @@ public class Team {
 
     private String name;
 
-    // left join 을 하지 않음 => member 정보가 없음(one으로 시작하는 애들은 안가지고옴)
-    // , fetch = FetchType.EAGER => 1번째 해결 방법
+    // left join 을 하지 않음 => member 정보 없음
+    // , fetch = FetchType.EAGER
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Member> members = new ArrayList<>();
-
 }
