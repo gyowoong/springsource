@@ -50,4 +50,14 @@ public class BoardRepositoryTest {
         boardRepository.deleteById(6L);
     }
 
+    @Test
+    public void testTitleList() {
+        boardRepository.findByTitle("Title....").forEach(b -> {
+            System.out.println(b);
+        });
+        boardRepository.findByTitleLike("Title").forEach(b -> {
+            System.out.println(b);
+        });
+    }
+
 }
