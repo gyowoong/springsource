@@ -18,7 +18,7 @@ public class MemoRepositoryTest {
     // C
     @Test
     public void testMemoInsert() {
-        LongStream.rangeClosed(1, 10).forEach(i -> {
+        LongStream.rangeClosed(1, 100).forEach(i -> {
             Memo memo = Memo.builder().memoText("memo practice" + i).build();
             memoRepository.save(memo);
         });
@@ -54,4 +54,15 @@ public class MemoRepositoryTest {
         memoRepository.deleteById(30L);
     }
 
+    // 쿼리메소드 테스트
+    @Test
+    public void testQueryMethod() {
+        // memoRepository.findByMnoLessThan(30L).forEach(m -> System.out.println(m));
+
+        // memoRepository.findByMnoLessThanOrderByMnoDesc(50L).forEach(m ->
+        // System.out.println(m));
+
+        memoRepository.findByMnoBetween(50L, 100L).forEach(m -> System.out.println(m));
+
+    }
 }

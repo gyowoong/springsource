@@ -22,7 +22,7 @@ public class MemoRepositoryTest {
 
         LongStream.rangeClosed(1, 10).forEach(i -> {
 
-            Memo memo = Memo.builder().memoText("Memo text...." + i).build();
+            Memo memo = Memo.builder().memoText("Memo Text...." + i).build();
             System.out.println(memoRepository.save(memo));
         });
     }
@@ -45,7 +45,7 @@ public class MemoRepositoryTest {
         }
     }
 
-    // U(Update)
+    // U
     @Test
     public void updateTest() {
         Optional<Memo> result = memoRepository.findById(5L);
@@ -56,7 +56,7 @@ public class MemoRepositoryTest {
         });
     }
 
-    // D(Delete)
+    // D
     @Test
     public void deleteTest() {
         // Optional<Memo> result = memoRepository.findById(10L);

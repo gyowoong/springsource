@@ -17,7 +17,7 @@ public class MemberRepositoryTest {
     private MemberRepository memberRepository;
 
     @Test
-    public void insertTest() { // test 메소드는 무조건 public void !!
+    public void insertTest() {
         // Member member = Member.builder()
         // .id("user1")
         // .username("user1")
@@ -37,7 +37,6 @@ public class MemberRepositoryTest {
                             .build();
                     memberRepository.save(member);
                 });
-
     }
 
     @Test
@@ -52,7 +51,7 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void UpdateTest() {
+    public void updateTest() {
         // save() : insert or update
         // Member member = Member.builder()
         // .id("user8")
@@ -71,5 +70,6 @@ public class MemberRepositoryTest {
     public void deleteTest() {
         // memberRepository.delete(null);
         memberRepository.deleteById("user10");
+
     }
 }
