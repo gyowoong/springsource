@@ -1,7 +1,6 @@
 package com.example.mart.repository;
 
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,8 @@ import org.springframework.test.annotation.Commit;
 
 import com.example.mart.entity.cascade.Child;
 import com.example.mart.entity.cascade.Parent;
-import com.example.mart.entity.sports.Locker;
-import com.example.mart.entity.sports.SportsMember;
 import com.example.mart.repository.cascade.ChildRepository;
 import com.example.mart.repository.cascade.ParentRepository;
-import com.example.mart.repository.sports.LockerRepository;
-import com.example.mart.repository.sports.SportsMemberRepository;
 
 import jakarta.transaction.Transactional;
 

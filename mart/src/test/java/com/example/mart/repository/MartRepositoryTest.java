@@ -1,6 +1,8 @@
 package com.example.mart.repository;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +86,7 @@ public class MartRepositoryTest {
     public void orderInsertTest() {
 
         Member member = memberRepository.findById(1L).get();
-        Item item = itemRepository.findById(2L).get();
+        Item item = itemRepository.findById(5L).get();
 
         Order order = Order.builder()
                 .orderDate(LocalDateTime.now())
@@ -102,6 +104,21 @@ public class MartRepositoryTest {
         orderItemRepository.save(orderItem);
 
         // item 수량 감소
+    }
+
+    @Test
+    public void orderItemInsertTest() {
+
+        Item item = itemRepository.findById(5L).get();
+        Order order = Order.builder().id(2L).build();
+
+        OrderItem orderItem = OrderItem.builder()
+                .price(50000)
+                .count(4)
+                .order(order)
+                .item(item)
+                .build();
+        orderItemRepository.save(orderItem);
     }
 
     // R
@@ -191,7 +208,7 @@ public class MartRepositoryTest {
     @Test
     public void testOrderItemList() {
 
-        Order order = orderRepository.findById(1L).get();
+        Order order = orderRepository.findById(2L).get();
         System.out.println(order);
         // Order ==> OrderItem 탐색 시도
         order.getOrderItemsList().forEach(orderItem -> System.out.println(orderItem));
@@ -224,15 +241,15 @@ public class MartRepositoryTest {
         deliveryRepository.save(delivery);
 
         // order 와 배송정보 연결
-        Order order = orderRepository.findById(1L).get();
+        Order order = orderRepository.findById(2L).get();
         order.setDelivery(delivery);
         orderRepository.save(order);
     }
 
     @Test
     public void testOrderRead() {
-        // order 조회(+ 배송정보)
-        Order order = orderRepository.findById(1L).get();
+        // order 조회 (+ 배송정보)
+        Order order = orderRepository.findById(2L).get();
         System.out.println(order);
 
         System.out.println(order.getDelivery());
@@ -241,10 +258,45 @@ public class MartRepositoryTest {
     // 양방향(배송 => 주문)
     @Test
     public void testDeliveryRead() {
-        // 배송정보 조회(+ order)
+        // 배송정보 조회 (+ order)
         Delivery delivery = deliveryRepository.findById(1L).get();
         System.out.println(delivery);
-
         System.out.println(delivery.getOrder());
+    }
+
+    // querydsl
+    @Test
+    public void testMembers() {
+        System.out.println(orderRepository.members());
+    }
+
+    @Test
+    public void testItems() {
+        System.out.println(orderRepository.items());
+    }
+
+    @Test
+    public void testJoin() {
+        List<Object[]> result = orderRepository.joinTest();
+
+        // [Order(id=2, orderDate=2024-11-04T15:54:54.125130, status=ORDER),
+        // Member(id=1, name=user1, zipcode=15100, city=서울시, street=255-12)]
+        for (Object[] objects : result) {
+            System.out.println(Arrays.toString(objects));
+            System.out.println((Order) objects[0]);
+            System.out.println((Member) objects[1]);
+            System.out.println((OrderItem) objects[2]);
+        }
+    }
+
+    @Test
+    public void testSubQuery() {
+        List<Object[]> result = orderRepository.subQueryTest();
+        for (Object[] objects : result) {
+            System.out.println(Arrays.toString(objects));
+            System.out.println((Order) objects[0]);
+            System.out.println((Member) objects[1]);
+            System.out.println((Long) objects[2]);
+        }
     }
 }

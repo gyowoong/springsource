@@ -6,12 +6,13 @@ import java.util.stream.LongStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.example.mart.entity.sports.Locker;
 import com.example.mart.entity.sports.SportsMember;
 import com.example.mart.repository.sports.LockerRepository;
 import com.example.mart.repository.sports.SportsMemberRepository;
+
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
 public class LockerRepositoryTest {
@@ -42,8 +43,8 @@ public class LockerRepositoryTest {
 
     @Test
     public void testMemberUpdate() {
-        SportsMember sportsMember = memberRepository.findById(9L).get();
-        sportsMember.setName("test9");
+        SportsMember sportsMember = memberRepository.findById(5L).get();
+        sportsMember.setName("test5");
         memberRepository.save(sportsMember);
     }
 

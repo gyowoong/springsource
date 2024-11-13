@@ -20,7 +20,7 @@
             <label for="floatingTextarea">MemoText</label>
             <div
               th:if="${#fields.hasErrors('memoText')}"
-              th:errors="{memoText}"
+              th:errors="*{memoText}"
               class="text-danger"
             ></div>
           </div>

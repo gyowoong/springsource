@@ -15,5 +15,4 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
 
     // where mno >= 50 and mno <= 100 order by mno desc
     List<Memo> findByMnoBetween(Long start, Long end);
-
 }
