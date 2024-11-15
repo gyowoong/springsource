@@ -2,6 +2,8 @@ package com.example.guestbook.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,11 +21,14 @@ public class GuestBookDto {
 
     private Long gno;
 
+    @NotBlank(message = "title 은 필수 입력 요소입니다.")
     private String title;
 
-    private String writer;
-
+    @NotEmpty(message = "content 은 필수 입력 요소입니다.")
     private String content;
+
+    @NotBlank(message = "writer 은 필수 입력 요소입니다.")
+    private String writer;
 
     private LocalDateTime regDate; // 최초 생성 시간
 
