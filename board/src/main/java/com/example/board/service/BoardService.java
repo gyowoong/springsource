@@ -8,19 +8,15 @@ import com.example.board.entity.Member;
 
 public interface BoardService {
 
-    // c
+    // crud
     Long register(BoardDto dto);
 
-    // list r
     PageResultDto<BoardDto, Object[]> getList(PageRequestDto requestDto);
 
-    // r
     BoardDto read(Long bno);
 
-    // u
     Long update(BoardDto dto);
 
-    // d
     void remove(Long bno);
 
     // entity => dto
@@ -49,4 +45,5 @@ public interface BoardService {
                 .writer(member)
                 .build();
     }
+
 }

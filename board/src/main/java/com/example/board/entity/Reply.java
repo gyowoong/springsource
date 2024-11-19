@@ -6,11 +6,8 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,7 +34,7 @@ public class Reply extends BaseEntity {
 
     private String replyer;
 
-    // fetch=>EAGER @Builder.Default와 반대방향
+    // fetch=>EAGER
     @ManyToOne(fetch = FetchType.LAZY)
     private Board board;
 

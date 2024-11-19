@@ -58,7 +58,7 @@ public class BookController {
     public String postModify(BookDto dto, @ModelAttribute("requestDto") PageRequestDto requestDto,
             RedirectAttributes rttr) {
         log.info("도서 수정 요청 {}", dto);
-        log.info("requestDto {}", requestDto);
+        log.info("requestDto {} ", requestDto);
 
         Long id = bookService.update(dto);
 
@@ -68,15 +68,15 @@ public class BookController {
         rttr.addAttribute("size", requestDto.getSize());
         rttr.addAttribute("type", requestDto.getType());
         rttr.addAttribute("keyword", requestDto.getKeyword());
-
         return "redirect:read";
     }
 
     @PostMapping("/remove")
     public String postMethodName(@RequestParam Long id, @ModelAttribute("requestDto") PageRequestDto requestDto,
             RedirectAttributes rttr) {
-        log.info("도서 삭제 요청 {}", id);
-        log.info("requestDto {}", requestDto);
+        log.info("도서 삭제 요청 {} ", id);
+        log.info("requestDto {} ", requestDto);
+
         bookService.delete(id);
 
         rttr.addAttribute("page", requestDto.getPage());
@@ -88,7 +88,8 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public void getCreate(@ModelAttribute("dto") BookDto dto, Model model) {
+    public void getCreate(@ModelAttribute("dto") BookDto dto, Model model,
+            @ModelAttribute("requestDto") PageRequestDto requestDto) {
         log.info("도서 입력 폼 요청");
 
         List<CategoryDto> categories = bookService.getCateList();

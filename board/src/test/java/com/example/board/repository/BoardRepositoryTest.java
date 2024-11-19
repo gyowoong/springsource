@@ -150,4 +150,27 @@ public class BoardRepositoryTest {
         boardRepository.deleteById(1L);
     }
 
+    @Test
+    public void testReplyRemove2() {
+        // 부모 제거시 자식(Reply) 제거
+        boardRepository.deleteById(5L);
+    }
+
+    @Test
+    public void testReplyList() {
+        Board board = Board.builder().bno(20L).build();
+        List<Reply> list = replyRepository.findByBoardOrderByRno(board);
+
+        list.forEach(b -> System.out.println(board));
+    }
+
+    @Test
+    public void testReplyUpdate() {
+        // 댓글 수정
+        Reply reply = replyRepository.findById(100L).get();
+        System.out.println("reply  " + reply);
+        // 내용 수정
+        reply.setText("내용 수정");
+        System.out.println(replyRepository.save(reply));
+    }
 }

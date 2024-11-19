@@ -21,3 +21,5 @@ public class BoardController {
     public void getRead() {
         log.info("read 요청");
     }
+
+}
