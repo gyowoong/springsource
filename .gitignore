@@ -76,3 +76,4 @@ buildNumber.properties
 */.mvn/wrapper/maven-wrapper.properties
 .vscode/settings.json
 */mvnw
+club/src/main/resources/application-oauth.properties
