@@ -47,7 +47,7 @@ public class ReplyController {
         return new ResponseEntity<Long>(rno, HttpStatus.OK);
     }
 
-    @GetMapping("{rno}")
+    @GetMapping("/{rno}")
     public ResponseEntity<ReplyDto> getRow(@PathVariable Long rno) {
         log.info("댓글 상세 조회 {}", rno);
 
@@ -74,4 +74,5 @@ public class ReplyController {
 
         return new ResponseEntity<Long>(rno, HttpStatus.OK);
     }
+
 }
