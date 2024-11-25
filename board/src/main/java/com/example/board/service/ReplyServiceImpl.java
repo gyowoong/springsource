@@ -23,7 +23,6 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public Long register(ReplyDto replyDto) {
         return replyRepository.save(dtoToEntity(replyDto)).getRno();
-
     }
 
     @Override
@@ -41,7 +40,8 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public Long modify(ReplyDto replyDto) {
-        Reply reply = replyRepository.findById(100L).get();
+
+        Reply reply = replyRepository.findById(replyDto.getRno()).get();
         // 내용 수정
         reply.setText(replyDto.getText());
         return replyRepository.save(reply).getRno();

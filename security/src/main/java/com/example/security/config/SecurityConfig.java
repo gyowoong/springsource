@@ -1,5 +1,6 @@
 package com.example.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -12,9 +13,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@EnableWebSecurity // 웹에 적용할 시큐리티
+@EnableWebSecurity // 웹에 적용할 시큐리티 클래스 포함
 @Configuration // 환경설정 파일
 public class SecurityConfig {
 
@@ -22,13 +22,10 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/sample/guest", "auth").permitAll()
+                        .requestMatchers("/", "/sample/guest").permitAll()
                         .requestMatchers("/sample/member").hasRole("USER")
                         .requestMatchers("/sample/admin").hasRole("ADMIN"))
-                // .formLogin(Customizer.withDefaults()); (기본 페이지 띄우는 방식) 시큐리티가 제공하는 로그인 페이지
-                .formLogin(login -> login.loginPage("/member/login").permitAll())
-                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                        .logoutSuccessUrl("/"));
+                .formLogin(Customizer.withDefaults());
 
         return http.build();
     }
@@ -42,16 +39,9 @@ public class SecurityConfig {
     UserDetailsService users() {
         UserDetails user = User.builder()
                 .username("user1")
-                .password("{bcrypt}$2a$10$7IRh7qyZ2D7dC2Smd9UcmuSWkOVGnykJ6DaRBwVAThsgK0pSY6lvG")
+                .password("{bcrypt}$2a$10$KyDcOFD/NBfGPi/NC2/xGeFvUHcO/YzJVatLumNMpFK29fod1HZgO")
                 .roles("USER")
                 .build();
-
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password("{bcrypt}$2a$10$7IRh7qyZ2D7dC2Smd9UcmuSWkOVGnykJ6DaRBwVAThsgK0pSY6lvG")
-                .roles("ADMIN", "USER")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin);
-
+        return new InMemoryUserDetailsManager(user);
     }
 }

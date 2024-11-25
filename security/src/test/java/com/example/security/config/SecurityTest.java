@@ -22,6 +22,5 @@ public class SecurityTest {
         // matches() : 원 비밀번호와 암호화 된 비밀번호의 일치여부
         System.out.println(passwordEncoder.matches(password, encodePass));
         System.out.println(passwordEncoder.matches("2222", encodePass));
-
     }
 }

@@ -11,7 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Commit;
 
 import com.example.board.entity.Board;
 import com.example.board.entity.Member;
@@ -69,8 +71,8 @@ public class BoardRepositoryTest {
         // 100개
         IntStream.rangeClosed(1, 100).forEach(i -> {
 
-            // 235~334
-            long bno = (long) (Math.random() * 100) + 135;
+            // 121~220
+            long bno = (long) (Math.random() * 100) + 121;
             Board board = Board.builder().bno(bno).build();
 
             Reply reply = Reply.builder()
@@ -150,10 +152,11 @@ public class BoardRepositoryTest {
         System.out.println(Arrays.toString(object));
     }
 
+    @Commit
     @Transactional
     @Test
     public void testReplyRemove() {
-        replyRepository.deletebyBno(1L);
+        replyRepository.deleteByBno(1L);
         boardRepository.deleteById(1L);
     }
 
@@ -168,16 +171,16 @@ public class BoardRepositoryTest {
         Board board = Board.builder().bno(20L).build();
         List<Reply> list = replyRepository.findByBoardOrderByRno(board);
 
-        list.forEach(b -> System.out.println(board));
+        list.forEach(b -> System.out.println(b));
     }
 
     @Test
     public void testReplyUpdate() {
         // 댓글 수정
-        Reply reply = replyRepository.findById(100L).get();
+        Reply reply = replyRepository.findById(103L).get();
         System.out.println("reply  " + reply);
         // 내용 수정
-        reply.setText("내용 수정");
+        reply.setText("내용수정");
         System.out.println(replyRepository.save(reply));
     }
 }

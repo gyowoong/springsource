@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 public class MemberDto {
 
     @Email
-    @NotBlank(message = "이메일은 필수 요소입니다.")
+    @NotBlank(message = "이메일은 필수요소입니다.")
     private String email;
 
-    @NotBlank(message = "이름은 필수 요소입니다.")
+    @NotBlank(message = "이름은 필수요소입니다.")
     private String name;
 
-    @NotBlank(message = "비밀번호는 필수 요소입니다.")
+    @NotBlank(message = "비밀번호는 필수요소입니다.")
     private String password;
 
     private MemberRole role;

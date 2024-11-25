@@ -17,7 +17,7 @@ public interface BoardUserService {
                 .build();
     }
 
-    // dto => entity
+    // dto=> entity
     default Member dtoToEntity(MemberDto mDto) {
         return Member.builder()
                 .email(mDto.getEmail())

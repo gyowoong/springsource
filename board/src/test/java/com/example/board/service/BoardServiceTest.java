@@ -18,11 +18,9 @@ public class BoardServiceTest {
     public void testList() {
 
         PageRequestDto requestDto = new PageRequestDto();
-
         PageResultDto<BoardDto, Object[]> result = boardService.getList(requestDto);
 
         result.getDtoList().forEach(dto -> System.out.println(dto));
-        System.out.println("전체 페이지" + result.getTotalPage());
+        System.out.println("전체 페이지 " + result.getTotalPage());
     }
-
 }

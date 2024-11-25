@@ -18,10 +18,10 @@ public class ReplyDto {
     private String text;
 
     private String replyer;
-    // private Board Board;
+
+    // private Board board;
     private Long bno; // 게시글 번호(부모)
 
     private LocalDateTime regDate;
     private LocalDateTime updateDate;
-
 }

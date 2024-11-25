@@ -26,4 +26,5 @@ public class SampleController {
     public void getAdmin() {
         log.info("admin 요청");
     }
+
 }
