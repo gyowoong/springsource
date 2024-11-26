@@ -22,7 +22,6 @@ public class ReviewRepositoryTest {
     public void testInsert() {
 
         IntStream.rangeClosed(1, 200).forEach(i -> {
-
             // 영화번호 임의 추출
             Long mno = (long) (Math.random() * 50) + 1;
             Movie movie = Movie.builder().mno(mno).build();

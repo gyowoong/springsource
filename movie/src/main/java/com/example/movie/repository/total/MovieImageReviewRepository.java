@@ -12,4 +12,5 @@ public interface MovieImageReviewRepository {
 
     // 특정 영화 정보 조회
     List<Object[]> getMovieRow(Long mno);
+
 }
