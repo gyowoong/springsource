@@ -80,6 +80,7 @@ replyForm.addEventListener("submit", (e) => {
     fetch(`/replies/new`, {
       headers: {
         "content-type": "application/json",
+        "X-CSRF-TOKEN": csrfValue,
       },
       body: JSON.stringify(reply),
       method: "post",
