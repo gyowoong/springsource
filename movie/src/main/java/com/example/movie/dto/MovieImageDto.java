@@ -1,6 +1,7 @@
 package com.example.movie.dto;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 
@@ -31,7 +32,7 @@ public class MovieImageDto {
         String fullPath = "";
         try {
             fullPath = URLEncoder.encode(path + File.separator + "s_" + uuid + "_" + imgName, "utf-8");
-        } catch (Exception e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return fullPath;
@@ -42,7 +43,7 @@ public class MovieImageDto {
         String fullPath = "";
         try {
             fullPath = URLEncoder.encode(path + File.separator + uuid + "_" + imgName, "utf-8");
-        } catch (Exception e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return fullPath;

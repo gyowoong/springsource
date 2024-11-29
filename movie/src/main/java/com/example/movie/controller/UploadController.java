@@ -92,23 +92,27 @@ public class UploadController {
             uploadResultDtos.add(new UploadResultDto(uuid, originName, saveFolderPath));
         }
         return new ResponseEntity<List<UploadResultDto>>(uploadResultDtos, HttpStatus.OK);
-
     }
 
     @GetMapping("/display")
-    public ResponseEntity<byte[]> getFile(String fileName) {
+    public ResponseEntity<byte[]> getFile(String fileName, String size) {
         ResponseEntity<byte[]> result = null;
 
         try {
-            // "2024%2F11%2F27%5C42d0621c-d15e-4c04-aea3-91cfb3fb042e_wind1.jpg"
+            // "2024%2F11%2F27%5C7e9547c0-ba45-463b-a4ae-59a35d92962a_seoul1.jpg"
             String srcFileName = URLDecoder.decode(fileName, "utf-8");
+            // upload/2024/11/27/s_C7e9547c0-ba45-463b-a4ae-59a35d92962a_seoul1.jpg
             File file = new File(uploadPath + File.separator + srcFileName);
 
-            HttpHeaders headers = new HttpHeaders();
-            // "Content-type" : image/png or text/html
-            headers.add("Content-Type", Files.probeContentType(file.toPath()));
-            result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+            if (size != null && size.equals("1")) {
+                // upload/2024/11/27/, 원본파일명
+                file = new File(file.getParent(), file.getName().substring(2));
+            }
 
+            HttpHeaders headers = new HttpHeaders();
+            // Content-Type : image/png or text/html
+            headers.add("Content-Type", Files.probeContentType(file.toPath()));
+            result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -128,7 +132,7 @@ public class UploadController {
             file.delete();
 
             // 썸네일 파일 삭제
-            // /upload/2024/11/27/~~~_1.jpg
+            // /upload/2024/11/27/~~~~~_1.jpg
             File thumbFile = new File(file.getParent(), "s_" + file.getName());
             thumbFile.delete();
 
@@ -138,7 +142,6 @@ public class UploadController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     private String makeFolder() {

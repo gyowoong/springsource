@@ -45,5 +45,4 @@ public class Movie extends BaseEntity {
     // @Builder.Default
     // @OneToMany(mappedBy = "movie", cascade = CascadeType.REMOVE)
     // List<Review> reviews = new ArrayList<>();
-
 }

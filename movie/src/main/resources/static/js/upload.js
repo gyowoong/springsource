@@ -9,8 +9,8 @@ function showUploadImages(files) {
   files.forEach((file) => {
     tags += `<li data-name="${file.fileName}" data-path="${file.folderPath}" data-uuid="${file.uuid}">`;
     tags += `<div>`;
-    tags += `<a href=""><img src="/upload/display?fileName=${file.thumbImageURL}" class="block" /></a>`;
-    tags += `<span class="text-sm d-inline-block mx-1"></span>`;
+    tags += `<a href=""><img src="/upload/display?fileName=${file.thumbImageURL}" class="block"></a>`;
+    tags += `<span class="text-sm d-inline-block mx-1">${file.fileName}</span>`;
     tags += `<a href="${file.imageURL}" data-file=""><i class="fa-solid fa-xmark"></i></a>`;
     tags += `</div>`;
     tags += `</li>`;
@@ -45,7 +45,7 @@ document.querySelector("#createForm").addEventListener("submit", (e) => {
 
   // 첨부파일 정보 수집 : uploadResult li
   // data-name="" data-path="" data-uuid=""
-  // 요소.dateaset.name
+  // 요소.dataset.name
   const attachInfos = document.querySelectorAll(".uploadResult li");
   let result = "";
   attachInfos.forEach((obj, idx) => {
@@ -59,40 +59,8 @@ document.querySelector("#createForm").addEventListener("submit", (e) => {
   });
   e.target.insertAdjacentHTML("beforeend", result);
 
-  // 폼 내용 확인
+  //폼 내용 확인
   console.log(e.target.innerHTML);
 
   e.target.submit();
-});
-
-// x를 누르면 삭제 요청 => 부모 이벤트
-document.querySelector(".uploadResult ul").addEventListener("click", (e) => {
-  // a 태그 기능 중지
-  e.preventDefault();
-
-  // href 값 가져오기
-  const element = e.target.closest("a");
-
-  // 이미지 삭제
-  const removeLi = e.target.closest("li");
-
-  // 삭제할 이미지 경로 추출
-  const filePath = element.getAttribute("href");
-
-  let formData = new FormData();
-  formData.append("filePath", filePath);
-
-  fetch("/upload/remove", {
-    method: "post",
-    body: formData,
-  })
-    .then((response) => {
-      if (!response.ok) throw new Error("에러 발생");
-
-      return response.text();
-    })
-    .then((data) => {
-      // 화면 이미지 제거
-      if (data) removeLi.remove();
-    });
 });
