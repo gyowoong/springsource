@@ -85,13 +85,12 @@ public interface MovieService {
 
         if (movieImageDtos != null && movieImageDtos.size() > 0) {
             List<MovieImage> movieImages = movieImageDtos.stream().map(dto -> {
-                MovieImage movieImage = MovieImage.builder()
+                return MovieImage.builder()
                         .uuid(dto.getUuid())
                         .imgName(dto.getImgName())
                         .path(dto.getPath())
                         .movie(movie)
                         .build();
-                return movieImage;
             }).collect(Collectors.toList());
 
             resultMap.put("movieImages", movieImages);

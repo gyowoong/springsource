@@ -9,6 +9,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.example.movie.handler.CustomAccessDeniedHandler;
 
 @EnableMethodSecurity
 @EnableWebSecurity
@@ -19,20 +22,37 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/", "/assets/**", "/css/**", "/js/**", "/upload/**").permitAll()
-                .requestMatchers("/movie/list").permitAll()
-                .anyRequest().authenticated()); // 다 막은 코드
-        http.formLogin(login -> login.loginPage("/member/login").permitAll()); // 로그인 창 열기
+                .requestMatchers("/movie/list", "/member/register").permitAll()
+                .requestMatchers("/movie/modify").hasRole("ADMIN")
+                .anyRequest().authenticated());
+        http.formLogin(login -> login
+                .loginPage("/member/login").permitAll()
+                .defaultSuccessUrl("/movie/list"));
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
 
+        http.logout(logout -> logout
+                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                .logoutSuccessUrl("/"));
         // http.csrf(csrf -> csrf.disable());
 
+        // 403 을 정적 페이지로 처리 시
+        // http.exceptionHandling(exception ->
+        // exception.accessDeniedPage("/accessdenied.html"));
+
+        // 403을 핸들러로 처리 시
+        http.exceptionHandling(exception -> exception.accessDeniedHandler(customAccessDeniedHandler()));
+
         return http.build();
+    }
+
+    @Bean // Bean : 스프링보고 관리 (객체 생성할테니 너가 관리해라)
+    CustomAccessDeniedHandler customAccessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 
     @Bean
     PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-
 }
